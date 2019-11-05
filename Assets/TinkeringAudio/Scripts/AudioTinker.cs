@@ -12,6 +12,7 @@ public class AudioTinker : MonoBehaviour {
     private AudioSource audioSource;
     private AudioClip outAudioClip;
     public int freq = 1500;
+    public int length = 1;
     
     // Start is called before the first frame update
     void Start() {
@@ -33,7 +34,7 @@ public class AudioTinker : MonoBehaviour {
     
     // Private 
     private AudioClip CreateToneAudioClip(int frequency) {
-        int sampleDurationSecs = 5;
+        int sampleDurationSecs = length;
         int sampleRate = 44100;
         int sampleLength = sampleRate * sampleDurationSecs;
         float maxValue = 1f / 4f;
@@ -42,7 +43,7 @@ public class AudioTinker : MonoBehaviour {
         
         float[] samples = new float[sampleLength];
         for (var i = 0; i < sampleLength; i++) {
-            float s = Mathf.Sin(2.0f * Mathf.PI * frequency * ((float) i / (float) sampleRate));
+            float s = Mathf.Tan(2.0f * Mathf.PI * frequency * ((float) i / (float) sampleRate));
             float v = s * maxValue;
             samples[i] = v;
         }
@@ -57,6 +58,7 @@ public class AudioTinker : MonoBehaviour {
         {
             PlayOutAudio();
         }
+
         if (Input.GetKeyDown("up"))
         {
             freq += 100;
@@ -65,6 +67,15 @@ public class AudioTinker : MonoBehaviour {
         {
             freq -= 100;
         }
+        if (Input.GetKeyDown("right"))
+        {
+            length++;
+        }
+        if (Input.GetKeyDown("left"))
+        {
+            length--;
+        }
+
     }
 
     
