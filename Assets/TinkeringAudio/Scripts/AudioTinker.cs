@@ -45,6 +45,7 @@ public class AudioTinker : MonoBehaviour {
         float[] samples = new float[sampleLength];
         for (var i = 0; i < sampleLength; i++) {
             float sample = Mathf.Sin(2.0f * Mathf.PI * frequency * ((float) i / (float) sampleRate));
+            //float sample = Random.Range(-1, 1);
             float v = sample * maxValue;
             samples[i] = v;
         }
