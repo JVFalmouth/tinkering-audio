@@ -13,6 +13,7 @@ public class AudioTinker : MonoBehaviour {
     private AudioClip outAudioClip;
     public int freq = 1500;
     public int length = 1;
+    public float amp = 0.25f;
     
     // Start is called before the first frame update
     void Start() {
@@ -37,14 +38,14 @@ public class AudioTinker : MonoBehaviour {
         int sampleDurationSecs = length;
         int sampleRate = 44100;
         int sampleLength = sampleRate * sampleDurationSecs;
-        float maxValue = 1f / 4f;
+        float maxValue = amp;
         
         var audioClip = AudioClip.Create("tone", sampleLength, 1, sampleRate, false);
         
         float[] samples = new float[sampleLength];
         for (var i = 0; i < sampleLength; i++) {
-            float s = Mathf.Tan(2.0f * Mathf.PI * frequency * ((float) i / (float) sampleRate));
-            float v = s * maxValue;
+            float sample = Mathf.Sin(2.0f * Mathf.PI * frequency * ((float) i / (float) sampleRate));
+            float v = sample * maxValue;
             samples[i] = v;
         }
 
@@ -78,7 +79,12 @@ public class AudioTinker : MonoBehaviour {
 
     }
 
-    
+    private void squareWave()
+    {
+
+    }
+
+
 #if UNITY_EDITOR
     //[Button("Save Wav file")]
     private void SaveWavFile() {
