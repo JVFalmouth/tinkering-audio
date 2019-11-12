@@ -18,22 +18,9 @@ public class AudioTinker : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         audioSource = GetComponent<AudioSource>();
-        outAudioClip = CreateToneAudioClip(freq);
+        audioSource.clip = CreateToneAudioClip(freq);
     }
     
-
-    // Public APIs
-    public void PlayOutAudio() {
-        audioSource.PlayOneShot(CreateToneAudioClip(freq));
-    }
-
-
-    public void StopAudio() {
-        audioSource.Stop();
-    }
-    
-    
-    // Private 
     private AudioClip CreateToneAudioClip(int frequency) {
         int sampleDurationSecs = length;
         int sampleRate = 44100;
@@ -56,26 +43,44 @@ public class AudioTinker : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        /*if (Input.GetKeyDown("space"))
         {
             PlayOutAudio();
-        }
-
+        }*/
         if (Input.GetKeyDown("up"))
         {
             freq += 100;
+            audioSource.clip = CreateToneAudioClip(freq);
         }
         if (Input.GetKeyDown("down"))
         {
             freq -= 100;
+            audioSource.clip = CreateToneAudioClip(freq);
         }
         if (Input.GetKeyDown("right"))
         {
             length++;
+            audioSource.clip = CreateToneAudioClip(freq);
         }
         if (Input.GetKeyDown("left"))
         {
             length--;
+            audioSource.clip = CreateToneAudioClip(freq);
+        }
+        if (Input.GetKeyDown("space"))
+        {
+            Debug.Log("space");
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+        if (Input.GetKeyUp("space"))
+        {
+            audioSource.loop = false;
+            audioSource.Stop();
+        }
+        if (Input.GetKeyDown("return"))
+        {
+            SaveWavFile();
         }
 
     }
