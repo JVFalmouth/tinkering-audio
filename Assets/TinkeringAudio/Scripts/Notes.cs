@@ -4,8 +4,8 @@ using UnityEngine;
 
 class Notes
 {
-    Dictionary<string, float> notes = new Dictionary<string, float>();
-    private Notes()
+    public Dictionary<string, float> notes = new Dictionary<string, float>();
+    public Notes()
     {
         notes.Add("C3", 130.81f);
         notes.Add("C#3", 138.59f);

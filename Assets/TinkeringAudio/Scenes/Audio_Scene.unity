@@ -214,6 +214,7 @@ MonoBehaviour:
   freq: 1500
   length: 2
   amp: 0.1
+  startIndex: 0
 --- !u!82 &306639505
 AudioSource:
   m_ObjectHideFlags: 0
