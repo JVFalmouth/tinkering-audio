@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-//using NaughtyAttributes;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -18,29 +17,10 @@ public class AudioTinker : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         audioSource = GetComponent<AudioSource>();
-        audioSource.clip = CreateToneAudioClip(freq);
+        SinWav Wave = new SinWav(freq);
+        audioSource.clip = Wave.clip;
     }
     
-    private AudioClip CreateToneAudioClip(int frequency) {
-        int sampleDurationSecs = length;
-        int sampleRate = 44100;
-        int sampleLength = sampleRate * sampleDurationSecs;
-        float maxValue = amp;
-        
-        var audioClip = AudioClip.Create("tone", sampleLength, 1, sampleRate, false);
-        
-        float[] samples = new float[sampleLength];
-        for (var i = 0; i < sampleLength; i++) {
-            float sample = Mathf.Sin(2.0f * Mathf.PI * frequency * ((float) i / (float) sampleRate));
-            //float sample = Random.Range(-1, 1);
-            float v = sample * maxValue;
-            samples[i] = v;
-        }
-
-        audioClip.SetData(samples, 0);
-        return audioClip;
-    }
-
     void Update()
     {
         /*if (Input.GetKeyDown("space"))
@@ -50,26 +30,29 @@ public class AudioTinker : MonoBehaviour {
         if (Input.GetKeyDown("up"))
         {
             freq += 100;
-            audioSource.clip = CreateToneAudioClip(freq);
+            SinWav Wave = new SinWav(freq);
+            audioSource.clip = Wave.clip;
         }
         if (Input.GetKeyDown("down"))
         {
             freq -= 100;
-            audioSource.clip = CreateToneAudioClip(freq);
+            SinWav Wave = new SinWav(freq);
+            audioSource.clip = Wave.clip;
         }
         if (Input.GetKeyDown("right"))
         {
             length++;
-            audioSource.clip = CreateToneAudioClip(freq);
+            SinWav Wave = new SinWav(freq);
+            audioSource.clip = Wave.clip;
         }
         if (Input.GetKeyDown("left"))
         {
             length--;
-            audioSource.clip = CreateToneAudioClip(freq);
+            SinWav Wave = new SinWav(freq);
+            audioSource.clip = Wave.clip;
         }
         if (Input.GetKeyDown("space"))
         {
-            Debug.Log("space");
             audioSource.loop = true;
             audioSource.Play();
         }
@@ -78,25 +61,77 @@ public class AudioTinker : MonoBehaviour {
             audioSource.loop = false;
             audioSource.Stop();
         }
-        if (Input.GetKeyDown("return"))
+    }
+}
+
+class SquareWav
+{
+    float freq = 1000f;
+    float amp = 0.1f;
+    public AudioClip clip;
+
+    // Start is called before the first frame update
+    public SquareWav(float frequency)
+    {
+        freq = frequency;
+        clip = MakeSquareWave(freq);
+    }
+
+    private AudioClip MakeSquareWave(float frequency)
+    {
+        int sampleDurationSecs = 1;
+        int sampleRate = 44100;
+        int sampleLength = sampleRate * sampleDurationSecs;
+        float maxValue = amp;
+
+        var audioClip = AudioClip.Create("tone", sampleLength, 1, sampleRate, false);
+
+        float[] samples = new float[sampleLength];
+        for (int i = 0; i < sampleLength; i++)
         {
-            SaveWavFile();
+            float sample = Mathf.Sin(Mathf.Sin(2 * Mathf.PI * freq * Time.deltaTime));
+            float v = sample * maxValue;
+            samples[i] = v;
         }
 
+        audioClip.SetData(samples, 0);
+        return audioClip;
     }
-
-    private void squareWave()
-    {
-
-    }
-
-
-#if UNITY_EDITOR
-    //[Button("Save Wav file")]
-    private void SaveWavFile() {
-        string path = EditorUtility.SaveFilePanel("Where do you want the wav file to go?", "", "", "wav");
-        var audioClip = CreateToneAudioClip(1500);
-        SaveWavUtil.Save(path, audioClip);
-    }
-#endif
 }
+
+class SinWav
+{
+    float freq = 1000f;
+    float amp = 0.1f;
+    public AudioClip clip;
+
+    // Start is called before the first frame update
+    public SinWav(float frequency)
+    {
+        freq = frequency;
+        clip = MakeSinWave(freq);
+    }
+
+    private AudioClip MakeSinWave(float frequency)
+    {
+        int sampleDurationSecs = 1;
+        int sampleRate = 44100;
+        int sampleLength = sampleRate * sampleDurationSecs;
+        float maxValue = amp;
+
+        var audioClip = AudioClip.Create("tone", sampleLength, 1, sampleRate, false);
+
+        float[] samples = new float[sampleLength];
+        for (int i = 0; i < sampleLength; i++)
+        {
+            float sample = Mathf.Sin(2.0f * Mathf.PI * frequency * ((float)i / (float)sampleRate));
+            //float sample = Random.Range(-1, 1);
+            float v = sample * maxValue;
+            samples[i] = v;
+        }
+
+        audioClip.SetData(samples, 0);
+        return audioClip;
+    }
+}
+

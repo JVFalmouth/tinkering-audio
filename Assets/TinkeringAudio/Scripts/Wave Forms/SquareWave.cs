@@ -35,7 +35,7 @@ public class SquareWave : MonoBehaviour
         float[] samples = new float[sampleLength];
         for (var i = 0; i < sampleLength; i++)
         {
-            float sample = Mathf.Sin(Mathf.Sin((2 * Mathf.PI * Time.deltaTime) / T));
+            float sample = Mathf.Sin(Mathf.Sin(2 * Mathf.PI * frequency * Time.deltaTime));
             float v = sample * maxValue;
             samples[i] = v;
         }
