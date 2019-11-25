@@ -1,74 +1,79 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using UnityEngine.UI;
 
 public class AudioTinker : MonoBehaviour {
 
     Dictionary<string,float> notes = new Notes().notes;
     private AudioSource audioSource;
-    public float freq = 1500;
+    public int freq = 1500;
     public int length = 1;
     public float amp = 0.25f;
     public long startIndex = 0;
+    public Slider freqSlider;
+    LinkedList<AudioClip> audioTrack = new LinkedList<AudioClip>();
     SinWav Wave;
 
     // Start is called before the first frame update
     void Start() {
         Wave = new SinWav(0, 0);
         audioSource = GetComponent<AudioSource>();
-        freq = 1100f;
+        freq = 1100;
     }
     
     void Update()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            UpdateAudio();
-            audioSource.Play();
-        }
+        freq = (int)(440 * Mathf.Pow((1.059463f), freqSlider.value));
     }
-    void UpdateAudio()
+    public void UpdateAudio()
     {
-        startIndex = Wave.MakeWave(freq, startIndex);
+        Wave.MakeWave(freq);
         audioSource.clip = Wave.clip;
         audioSource.Play();
+    }
+
+    public void SaveWavFile()
+    {
+        string path = EditorUtility.SaveFilePanel("Where do you want the wav file to go?", "", "", "wav");
+         var audioClip = Wave.clip;
+        SaveWavUtil.Save(path, audioClip);
     }
 }
 
 class SinWav
 {
-    protected float freq = 1000f;
+    protected int freq = 1000;
     protected float amp = 0.1f;
     public AudioClip clip;
 
     // Start is called before the first frame update
-    public SinWav(float frequency, long startIndex)
+    public SinWav(int frequency, long startIndex)
     {
         freq = frequency;
-        MakeWave(freq, startIndex);
+        MakeWave(freq);
     }
 
-    public long MakeWave(float frequency, long startIndex)
+    public void MakeWave(int frequency)
     {
         int sampleDurationSecs = 1;
-        int sampleRate = 44100;
+        int sampleRate = 44200;
         int sampleLength = sampleRate * sampleDurationSecs;
         float maxValue = amp;
 
         var audioClip = AudioClip.Create("tone", sampleLength, 1, sampleRate, false);
 
         float[] samples = new float[sampleLength];
-        for (long i = startIndex; i < startIndex + sampleLength; i++)
+        for (long i = 0; i < sampleLength; i++)
         {
             float sample = Mathf.Sin(2.0f * Mathf.PI * frequency * ((float)i / (float)sampleRate));
             //float sample = Random.Range(-1, 1);
             float v = sample * maxValue;
-            samples[i-startIndex] = v;
+            samples[i] = v;
         }
-
         audioClip.SetData(samples, 0);
         clip = audioClip;
-        return (startIndex + sampleLength);
     }
 }
 /*
