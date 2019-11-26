@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: 'Assets/TinkeringAudio/Scenes/Contract #4.unity'
     guid: 8ce1638e707e6f74bba3a6d01e9194d7
   - enabled: 0
-    path: Assets/TinkeringAudio/Scenes/Audio_Scene.unity
+    path: 'Assets/TinkeringAudio/Scenes/Contract #3.unity'
     guid: 49656f1b4bce5764888f5230b4fc1165
   - enabled: 0
     path: Assets/TinkeringAudio/Scenes/SCN_Level0.unity
