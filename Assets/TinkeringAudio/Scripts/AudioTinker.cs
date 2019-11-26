@@ -7,14 +7,14 @@ using UnityEngine.UI;
 public class AudioTinker : MonoBehaviour {
 
     Dictionary<string,float> notes = new Notes().notes;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     public int freq = 1500;
     public int length = 1;
     public float amp = 0.25f;
     public long startIndex = 0;
     public Slider freqSlider;
     LinkedList<AudioClip> audioTrack = new LinkedList<AudioClip>();
-    SinWav Wave;
+    public SinWav Wave;
 
     // Start is called before the first frame update
     void Start() {
@@ -25,7 +25,7 @@ public class AudioTinker : MonoBehaviour {
     
     void Update()
     {
-        freq = (int)(440 * Mathf.Pow((1.059463f), freqSlider.value));
+        //freq = (int)(440 * Mathf.Pow((1.059463f), freqSlider.value));
     }
     public void UpdateAudio()
     {
@@ -42,7 +42,7 @@ public class AudioTinker : MonoBehaviour {
     }
 }
 
-class SinWav
+public class SinWav
 {
     protected int freq = 1000;
     protected float amp = 0.1f;
