@@ -28,11 +28,14 @@ public class AudioTinker : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
         freq = 1100;
     }
-    
+
     // Updates the frequency to be the value of the slider in the scene.
     void Update()
     {
-        freq = (int)(440 * Mathf.Pow((1.059463f), freqSlider.value));
+        if (freqSlider != null)
+        {
+            freq = (int)(440 * Mathf.Pow((1.059463f), freqSlider.value));
+        }
     }
 
     // Sets the audio source to have the clip provided, then plays it.
