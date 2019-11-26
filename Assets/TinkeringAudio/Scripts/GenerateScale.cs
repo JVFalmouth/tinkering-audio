@@ -3,23 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-
-/// <summary>
-/// James Vanstone, Contract 3, melody generation.
-/// Date: 26/11/2019
-/// </summary>
-
-
-public class GenerateTrack : MonoBehaviour
+public class GenerateScale : MonoBehaviour
 {
     // A linked list is used in order to generate audio tracks programatically by adding to the list.
     LinkedList<AudioClip> audioTrack = new LinkedList<AudioClip>();
-    AudioClip tune;
+    AudioClip scale;
     public AudioTinker gen;
     int note;
-    //int key = 0; This is not used rn due to not being implemented in this script.
-    // Tune length.
-    int length = 10;
+    int key = 4;
+    int length = 8;
 
     // Start is called before the first frame update
     void Start()
@@ -27,15 +19,13 @@ public class GenerateTrack : MonoBehaviour
         gen = GameObject.FindObjectOfType<AudioSource>().GetComponent<AudioTinker>();
     }
 
-    // This function will generate a random tune, regardless of any harmonics or key.
-    public void GenerateTune()
+    public void GenerateMajorScale()
     {
         audioTrack = new LinkedList<AudioClip>();
         for (int i = 0; i < length; i++)
         {
             // There are 12 notes in an octave, but random.range is upper exclusive.
-            note = Random.Range(0, 13);
-            // Sets the frequency to be an int cast of a chromatic scale starting on middle A (440Hz)
+            note = key+2*i;
             int freq = (int)(440 * Mathf.Pow((1.059463f), note));
 
             // Creates a new frequency.
@@ -56,16 +46,18 @@ public class GenerateTrack : MonoBehaviour
             clipSamples.CopyTo(tempSamples, samples.Length);
             samples = tempSamples;
         }
-        tune = AudioClip.Create("tune", samples.Length, 1, 44200, false);
-        tune.SetData(samples, 0);
-        gen.SetAudioSourceClip(tune);
+        scale = AudioClip.Create("scale", samples.Length, 1, 44200, false);
+        scale.SetData(samples, 0);
+        gen.audioSource.clip = scale;
+        gen.audioSource.Play();
     }
 
-    // Saves the file on call.
+
+    // Saves the scale to file when called. Not used in program at this time.
     public void SaveTuneWavFile()
     {
         string path = EditorUtility.SaveFilePanel("Where do you want the wav file to go?", "", "", "wav");
-        var audioClip = tune;
+        var audioClip = scale;
         SaveWavUtil.Save(path, audioClip);
     }
 }

@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
 
+/// <summary>
+/// This is for creating tones, contains
+/// - The class for controling the audio-source and setting the sound of such.
+/// - A sin wave class which has the methods for generating sin wave tones.
+/// </summary>
+
 public class AudioTinker : MonoBehaviour {
 
     Dictionary<string,float> notes = new Notes().notes;
@@ -23,10 +29,19 @@ public class AudioTinker : MonoBehaviour {
         freq = 1100;
     }
     
+    // Updates the frequency to be the value of the slider in the scene.
     void Update()
     {
-        //freq = (int)(440 * Mathf.Pow((1.059463f), freqSlider.value));
+        freq = (int)(440 * Mathf.Pow((1.059463f), freqSlider.value));
     }
+
+    // Sets the audio source to have the clip provided, then plays it.
+    public void SetAudioSourceClip(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
+
     public void UpdateAudio()
     {
         Wave.MakeWave(freq);
@@ -55,6 +70,8 @@ public class SinWav
         MakeWave(freq);
     }
 
+
+    // Generates the tone of the provided frequency.
     public void MakeWave(int frequency)
     {
         int sampleDurationSecs = 1;
@@ -76,40 +93,3 @@ public class SinWav
         clip = audioClip;
     }
 }
-/*
-class SquareWav : SinWav
-{
-    public SquareWav(float frequency): base(frequency) 
-    {
-        clip = MakeWave(freq);
-    }
-
-    private AudioClip MakeWave(float frequency)
-    {
-        int sampleDurationSecs = 1;
-        int sampleRate = 44100;
-        int sampleLength = sampleRate * sampleDurationSecs;
-        float maxValue = amp;
-
-        var audioClip = AudioClip.Create("tone", sampleLength, 1, sampleRate, false);
-
-        float[] samples = new float[sampleLength];
-        for (int i = 0; i < sampleLength; i++)
-        {
-            float sample = Mathf.Sin(2.0f * Mathf.PI * frequency * ((float)i / (float)sampleRate));
-            if (sample > 0)
-            {
-                sample = 1f;
-            }
-            else
-            {
-                sample = -1f;
-            }
-            float v = sample * maxValue;
-            samples[i] = v;
-        }
-
-        audioClip.SetData(samples, 0);
-        return audioClip;
-    }
-}*/
