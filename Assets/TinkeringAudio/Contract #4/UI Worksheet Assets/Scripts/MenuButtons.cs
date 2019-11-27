@@ -2,7 +2,7 @@
 // The context for this is based on contract #4, and is a User Interface for an imaginary game.
 using UnityEngine;
 using UnityEngine.SceneManagement;
-// using UnityEngine.UI; // If we are accessing UI components (eg Text, Button, Slider etc.) you need to use this library.
+// using UnityEngine.UI; // If we are accessing UI components (eg Text, Button, etc.), this library must be used.
 
 public class MenuButtons : MonoBehaviour {
 
