@@ -1,33 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-//using NaughtyAttributes;
 using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
-
-public class SquareWave : MonoBehaviour
+public class SquareWave
 {
-    private AudioSource audioSource;
-    float frequency = 1000f;
+    float freq;
     float amp = 0.1f;
+    public AudioClip clip;
 
-    // Start is called before the first frame update
-    void Start()
+    public SquareWave(int frequency)
     {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.clip = MakeSquareWave(frequency);
-        audioSource.loop = true;
-        audioSource.Play();
+        freq = frequency;
+        MakeWave((int)freq, 0.1f);
     }
 
-    private AudioClip MakeSquareWave(float frequency)
+    // Generates the tone of the provided frequency with a square wave.
+    private void MakeWave(int frequency, float sampleDuration)
     {
-        int sampleDurationSecs = 1;
         int sampleRate = 44100;
-        int sampleLength = sampleRate * sampleDurationSecs;
+        int sampleLength = (int)(sampleRate * sampleDuration);
         float maxValue = amp;
 
         var audioClip = AudioClip.Create("tone", sampleLength, 1, sampleRate, false);
@@ -41,6 +33,6 @@ public class SquareWave : MonoBehaviour
         }
 
         audioClip.SetData(samples, 0);
-        return audioClip;
+        clip = audioClip;
     }
 }

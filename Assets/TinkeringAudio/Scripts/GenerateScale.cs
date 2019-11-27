@@ -10,26 +10,29 @@ public class GenerateScale : MonoBehaviour
     AudioClip scale;
     public AudioTinker gen;
     int note;
-    int key = 4;
-    int length = 8;
+    int key = 0;
+    int[] majorScale = new int[] { 0, 2, 4, 5, 7, 9, 11, 12, 11, 9, 7, 5, 4, 2, 0 };
+    int[] minorScale = new int[] { 0, 2, 3, 5, 7, 8, 11, 12, 11, 8, 7, 5, 3, 2, 0 };
+    int[] currentKey;
 
     // Start is called before the first frame update
     void Start()
     {
+        currentKey = majorScale;
         gen = GameObject.FindObjectOfType<AudioSource>().GetComponent<AudioTinker>();
     }
 
     public void GenerateMajorScale()
     {
         audioTrack = new LinkedList<AudioClip>();
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < currentKey.Length; i++)
         {
             // There are 12 notes in an octave, but random.range is upper exclusive.
-            note = key+2*i;
+            note = key + currentKey[i];
             int freq = (int)(440 * Mathf.Pow((1.059463f), note));
 
             // Creates a new frequency.
-            gen.Wave.MakeWave(freq);
+            gen.Wave.MakeWave(freq, 0.1f);
 
             // Adds the frequecny to the linked list.
             audioTrack.AddLast(gen.Wave.clip);
@@ -59,5 +62,17 @@ public class GenerateScale : MonoBehaviour
         string path = EditorUtility.SaveFilePanel("Where do you want the wav file to go?", "", "", "wav");
         var audioClip = scale;
         SaveWavUtil.Save(path, audioClip);
+    }
+
+    public void SwitchKey()
+    {
+        if (currentKey == majorScale)
+        {
+            currentKey = minorScale;
+        }
+        else
+        {
+            currentKey = majorScale;
+        }
     }
 }

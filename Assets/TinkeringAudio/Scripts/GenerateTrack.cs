@@ -20,6 +20,8 @@ public class GenerateTrack : MonoBehaviour
     //int key = 0; This is not used rn due to not being implemented in this script.
     // Tune length.
     int length = 10;
+    [Range(0.01f,10f)]
+    public float noteLength = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +41,7 @@ public class GenerateTrack : MonoBehaviour
             int freq = (int)(440 * Mathf.Pow((1.059463f), note));
 
             // Creates a new frequency.
-            gen.Wave.MakeWave(freq);
+            gen.Wave.MakeWave(freq, noteLength);
 
             // Adds the frequecny to the linked list.
             audioTrack.AddLast(gen.Wave.clip);

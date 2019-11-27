@@ -20,12 +20,12 @@ public class AudioForUI : MonoBehaviour
     public long startIndex = 0;
     public Slider freqSlider;
     LinkedList<AudioClip> audioTrack = new LinkedList<AudioClip>();
-    public SinWav Wave;
+    public UISinWave Wave;
 
     // Start is called before the first frame update
     void Start()
     {
-        Wave = new SinWav(0, 0);
+        Wave = new UISinWave(0);
         audioSource = GetComponent<AudioSource>();
         freq = 1100;
     }
@@ -61,14 +61,14 @@ public class AudioForUI : MonoBehaviour
     }
 }
 
-public class SinWav
+public class UISinWave
 {
     protected int freq = 1000;
     protected float amp = 0.1f;
     public AudioClip clip;
 
     // Start is called before the first frame update
-    public SinWav(int frequency, long startIndex)
+    public UISinWave(int frequency)
     {
         freq = frequency;
         MakeWave(freq);
@@ -98,9 +98,9 @@ public class SinWav
     }
     private void btnPlay_Click()
     {
-        int freq = int.Parse();
-        int duration = int.Parse();
+        //int freq = int.Parse();
+        //int duration = int.Parse();
 
-        System.Console.Beep(freq, duration);
+        System.Console.Beep(freq, 1);
     }
 }
