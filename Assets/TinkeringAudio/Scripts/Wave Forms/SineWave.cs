@@ -8,13 +8,11 @@ public class SineWave
     protected float amp = 0.1f;
     public AudioClip clip;
 
-    // Start is called before the first frame update
     public SineWave(int frequency = 1)
     {
         freq = frequency;
         MakeWave((int)freq, 0.5f);
     }
-
 
     // Generates the tone of the provided frequency.
     public void MakeWave(int frequency, float sampleDuration)
@@ -26,10 +24,9 @@ public class SineWave
         var audioClip = AudioClip.Create("tone", sampleLength, 1, sampleRate, false);
 
         float[] samples = new float[sampleLength];
-        for (long i = 0; i < sampleLength; i++)
+        for (int i = 0; i < sampleLength; i++)
         {
             float sample = Mathf.Sin(2.0f * Mathf.PI * frequency * ((float)i / (float)sampleRate));
-            //float sample = Random.Range(-1, 1);
             float v = sample * maxValue;
             samples[i] = v;
         }

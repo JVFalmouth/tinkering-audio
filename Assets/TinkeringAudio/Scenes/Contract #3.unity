@@ -654,6 +654,7 @@ MonoBehaviour:
   startIndex: 0
   freqSlider: {fileID: 1160087487}
   sampleLength: 1
+  dropdown: {fileID: 0}
 --- !u!82 &306639505
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2500,7 +2501,7 @@ MonoBehaviour:
     m_Options:
     - m_Text: Sine Wave
       m_Image: {fileID: 21300000, guid: e8176d125d1fbe14dba5711b258195bd, type: 3}
-    - m_Text: Square Wave
+    - m_Text: Saw Wave
       m_Image: {fileID: 21300000, guid: e8176d125d1fbe14dba5711b258195bd, type: 3}
   m_OnValueChanged:
     m_PersistentCalls:

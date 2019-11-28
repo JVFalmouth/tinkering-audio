@@ -55,10 +55,10 @@ public class GenerateTrack : MonoBehaviour
             int freq = (int)(440 * Mathf.Pow((1.059463f), note));
 
             // Creates a new frequency.
-            gen.Wave.MakeWave(freq, noteLength);
+            var clip = gen.MakeWave(freq, noteLength);
 
             // Adds the frequecny to the linked list.
-            audioTrack.AddLast(gen.Wave.clip);
+            audioTrack.AddLast(clip);
         }
 
         // This will add all of the audio tracks together, end to end.

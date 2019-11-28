@@ -19,14 +19,17 @@ public class AudioTinker : MonoBehaviour {
     public float amp = 0.25f;
     public long startIndex = 0;
     public Slider freqSlider;
-    LinkedList<AudioClip> audioTrack = new LinkedList<AudioClip>();
-    public SineWave Wave;
+    public SineWave sineWave;
+    public SawWave sawWave;
     [Range(0.01f, 10f)]
     public float sampleLength = 1f;
+    public Dropdown dropdown;
 
     // Start is called before the first frame update
     void Start() {
-        Wave = new SineWave();
+        sawWave = new SawWave();
+        sineWave = new SineWave();
+        dropdown = GameObject.FindObjectOfType<Dropdown>();
         audioSource = GetComponent<AudioSource>();
         freq = 1100;
     }
@@ -37,6 +40,14 @@ public class AudioTinker : MonoBehaviour {
         if (freqSlider != null)
         {
             freq = (int)(440 * Mathf.Pow((1.059463f), freqSlider.value));
+        }
+        if (dropdown.value == 0)
+        {
+            audioSource.volume = 1;
+        }
+        else
+        {
+            audioSource.volume = 1;
         }
     }
 
@@ -49,15 +60,44 @@ public class AudioTinker : MonoBehaviour {
 
     public void UpdateAudio()
     {
-        Wave.MakeWave(freq, sampleLength);
-        audioSource.clip = Wave.clip;
-        audioSource.Play();
+        if (dropdown.value == 0)
+        {
+            sineWave.MakeWave(freq, sampleLength);
+            SetAudioSourceClip(sineWave.clip);
+        }
+        else
+        {
+            sawWave.MakeWave(freq, sampleLength);
+            SetAudioSourceClip(sawWave.clip);
+        }
+    }
+
+    public AudioClip MakeWave(int frequency, float noteLength)
+    {
+        if (dropdown.value == 0)
+        {
+            sineWave.MakeWave(frequency, noteLength);
+            return sineWave.clip;
+        }
+        else
+        {
+            sawWave.MakeWave(frequency, noteLength);
+            return sawWave.clip;
+        }
     }
 
     public void SaveWavFile()
     {
         string path = EditorUtility.SaveFilePanel("Where do you want the wav file to go?", "", "", "wav");
-         var audioClip = Wave.clip;
+        AudioClip audioClip;
+        if (dropdown.value == 0)
+        {
+            audioClip = sineWave.clip;
+        }
+        else
+        {
+            audioClip = sawWave.clip;
+        }
         SaveWavUtil.Save(path, audioClip);
     }
 }

@@ -32,10 +32,10 @@ public class GenerateScale : MonoBehaviour
             int freq = (int)(440 * Mathf.Pow((1.059463f), note));
 
             // Creates a new frequency.
-            gen.Wave.MakeWave(freq, 0.1f);
+            gen.sineWave.MakeWave(freq, 0.1f);
 
             // Adds the frequecny to the linked list.
-            audioTrack.AddLast(gen.Wave.clip);
+            audioTrack.AddLast(gen.sineWave.clip);
         }
 
         // This will add all of the audio tracks together, end to end.
