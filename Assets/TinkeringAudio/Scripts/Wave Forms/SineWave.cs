@@ -21,7 +21,6 @@ public class SineWave
     {
         int sampleRate = 44200;
         int sampleLength = (int)(sampleRate * sampleDuration);
-        sampleLength += frequency % sampleLength;
         float maxValue = amp;
 
         var audioClip = AudioClip.Create("tone", sampleLength, 1, sampleRate, false);

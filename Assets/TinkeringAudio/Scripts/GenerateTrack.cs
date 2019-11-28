@@ -22,6 +22,7 @@ public class GenerateTrack : MonoBehaviour
     int length = 10;
     [Range(0.01f,10f)]
     public float noteLength = 1f;
+    MixTunes mix = new MixTunes();
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,19 @@ public class GenerateTrack : MonoBehaviour
 
     // This function will generate a random tune, regardless of any harmonics or key.
     public void GenerateTune()
+    {
+        gen.SetAudioSourceClip(makeTune()); 
+    }
+
+    // Saves the file on call.
+    public void SaveTuneWavFile()
+    {
+        string path = EditorUtility.SaveFilePanel("Where do you want the wav file to go?", "", "", "wav");
+        var audioClip = tune;
+        SaveWavUtil.Save(path, audioClip);
+    }
+
+    AudioClip makeTune()
     {
         audioTrack = new LinkedList<AudioClip>();
         for (int i = 0; i < length; i++)
@@ -60,14 +74,11 @@ public class GenerateTrack : MonoBehaviour
         }
         tune = AudioClip.Create("tune", samples.Length, 1, 44200, false);
         tune.SetData(samples, 0);
-        gen.SetAudioSourceClip(tune);
+        return tune;
     }
 
-    // Saves the file on call.
-    public void SaveTuneWavFile()
+    public void GenerateMixedTune()
     {
-        string path = EditorUtility.SaveFilePanel("Where do you want the wav file to go?", "", "", "wav");
-        var audioClip = tune;
-        SaveWavUtil.Save(path, audioClip);
+        gen.SetAudioSourceClip(mix.Mix(makeTune(), makeTune()));
     }
 }
