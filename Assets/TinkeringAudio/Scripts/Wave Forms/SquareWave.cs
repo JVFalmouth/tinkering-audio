@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SawWave
+public class SquareWave
 {
     protected float freq;
     protected float amp = 0.1f;
     public AudioClip clip;
 
-    public SawWave(int frequency = 1)
+    public SquareWave(int frequency = 1)
     {
         freq = frequency;
         MakeWave((int)freq, 0.5f);
@@ -26,7 +26,7 @@ public class SawWave
         float[] samples = new float[sampleLength];
         for (var i = 0; i < sampleLength; i++)
         {
-            float sample = Mathf.Tan(0.5f * Mathf.PI * frequency * ((float)i / (float)sampleRate));
+            float sample = Mathf.Sin(2f * Mathf.PI * frequency * ((float)i / (float)sampleRate));
             float v = sample * maxValue;
             samples[i] = v;
         }

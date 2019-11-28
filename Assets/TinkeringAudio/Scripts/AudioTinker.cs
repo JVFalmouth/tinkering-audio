@@ -20,14 +20,14 @@ public class AudioTinker : MonoBehaviour {
     public long startIndex = 0;
     public Slider freqSlider;
     public SineWave sineWave;
-    public SawWave sawWave;
+    public SquareWave squareWave;
     [Range(0.01f, 10f)]
     public float sampleLength = 1f;
     public Dropdown dropdown;
 
     // Start is called before the first frame update
     void Start() {
-        sawWave = new SawWave();
+        squareWave = new SquareWave();
         sineWave = new SineWave();
         dropdown = GameObject.FindObjectOfType<Dropdown>();
         audioSource = GetComponent<AudioSource>();
@@ -67,8 +67,8 @@ public class AudioTinker : MonoBehaviour {
         }
         else
         {
-            sawWave.MakeWave(freq, sampleLength);
-            SetAudioSourceClip(sawWave.clip);
+            squareWave.MakeWave(freq, sampleLength);
+            SetAudioSourceClip(squareWave.clip);
         }
     }
 
@@ -81,8 +81,8 @@ public class AudioTinker : MonoBehaviour {
         }
         else
         {
-            sawWave.MakeWave(frequency, noteLength);
-            return sawWave.clip;
+            squareWave.MakeWave(frequency, noteLength);
+            return squareWave.clip;
         }
     }
 
@@ -96,7 +96,7 @@ public class AudioTinker : MonoBehaviour {
         }
         else
         {
-            audioClip = sawWave.clip;
+            audioClip = squareWave.clip;
         }
         SaveWavUtil.Save(path, audioClip);
     }

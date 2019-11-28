@@ -30,7 +30,7 @@ public class MixTunes
     {
         float[] samples = new float[longer.Length];
         float sample;
-        for (int i = 0; i >= longer.Length; i++)
+        for (int i = 0; i < longer.Length; i++)
         {
             try
             {
@@ -43,7 +43,6 @@ public class MixTunes
             samples[i] = sample;
         }
         AudioClip mixed = AudioClip.Create("mixed tune", samples.Length, 1, 44200, false);
-        Debug.Log(mixed.samples);
         mixed.SetData(samples, 0);
         return mixed;
     }
