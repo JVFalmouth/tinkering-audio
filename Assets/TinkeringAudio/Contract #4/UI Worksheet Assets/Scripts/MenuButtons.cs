@@ -1,8 +1,9 @@
-﻿//**CONTEXT** This script defines the methods used for the Tinkering Audio assignment.
-// The context for this is based on contract #4, and is a User Interface for an imaginary game.
+﻿// This script just contains functions that get called from clicking on buttons using Unity's UI system.
+// Put this script on an object in the scene and use the event properties of the UI components to run the desired method.
+// Any method set as "public void" on any script in the scene can be run by the UI event system.
 using UnityEngine;
 using UnityEngine.SceneManagement;
-// using UnityEngine.UI; // If we are accessing UI components (eg Text, Button, etc.), this library must be used.
+// using UnityEngine.UI; // If we are accessing UI components (eg Text, Button, Slider etc.) you need to use this library.
 
 public class MenuButtons : MonoBehaviour {
 
@@ -46,22 +47,15 @@ public class MenuButtons : MonoBehaviour {
         SceneManager.LoadScene(1);
     }
 
-    // This method will define what happens when the user clicks the help button.
-    // It is intneded to be run from a UI component.
-    public void PressHelpButton()
-    {
-        Debug.Log("Help button pressed.");
-    }
-
     // This method will define what happens when the user presses the quit button.
     // It is intneded to be run from a UI component.
     public void PressQuitButton()
     {
         Debug.Log("Quit button pressed.");
-        #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-        #else
-        Application.Quit();
-        #endif
+    #if (UNITY_EDITOR)
+    UnityEditor.EditorApplication.isPlaying = false;
+    #else
+    Application.Quit();
+    #endif
     }
 }

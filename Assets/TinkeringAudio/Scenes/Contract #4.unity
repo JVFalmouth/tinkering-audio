@@ -1936,6 +1936,7 @@ GameObject:
   - component: {fileID: 1548536271}
   - component: {fileID: 1548536270}
   - component: {fileID: 1548536269}
+  - component: {fileID: 1548536272}
   m_Layer: 0
   m_Name: Audio Source
   m_TagString: Untagged
@@ -2071,6 +2072,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1548536272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548536268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2e262655a28e64cb1a5de6718d23a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  i: -1
 --- !u!1001 &1614303439
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2308,7 +2322,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1548536269}
+      objectReference: {fileID: 1548536272}
     - target: {fileID: 1712320867369656819, guid: 613a0d4d10e99e3479aa9c2907e5bf86,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
