@@ -1,6 +1,7 @@
 ﻿//This script is intended for use in contract #4
 //It is being used for a volume slider.
 //Currently it does not work correctly.
+// Made by JG228250 using MIT license.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class VolumeSlider : MonoBehaviour {
     {
         slider.value = PlayerPrefs.GetFloat("Value", 0.75f);
     }
+
     //This part actually changes the float value of the volume.
     //It still does not actually achieve this.
     public void SetLevel()
