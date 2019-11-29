@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SquareWave
+public class SineWave
 {
     protected float freq;
     protected float amp = 0.1f;
     public AudioClip clip;
 
-    public SquareWave(int frequency = 1)
+    public SineWave(int frequency = 1)
     {
         freq = frequency;
         MakeWave((int)freq, 0.5f);
     }
 
-    // Generates the tone of the provided frequency with a square wave.
+    // Generates the tone of the provided frequency.
     public void MakeWave(int frequency, float sampleDuration)
     {
         int sampleRate = 44200;
@@ -24,9 +24,9 @@ public class SquareWave
         var audioClip = AudioClip.Create("tone", sampleLength, 1, sampleRate, false);
 
         float[] samples = new float[sampleLength];
-        for (var i = 0; i < sampleLength; i++)
+        for (int i = 0; i < sampleLength; i++)
         {
-            float sample = Mathf.Sin(2f * Mathf.PI * frequency * ((float)i / (float)sampleRate));
+            float sample = Mathf.Sin(2.0f * Mathf.PI * frequency * ((float)i / (float)sampleRate));
             float v = sample * maxValue;
             samples[i] = v;
         }

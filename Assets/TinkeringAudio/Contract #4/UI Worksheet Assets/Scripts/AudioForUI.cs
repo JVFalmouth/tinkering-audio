@@ -20,12 +20,31 @@ public class AudioForUI : MonoBehaviour
     public Slider volSlider;
     private SinWav Wave;
 
+<<<<<<< HEAD
     //Start is called before the first update
     private void Start()
     {
         Wave = new SinWav(0, 0);
         source = GetComponent<AudioSource>();
         float freq = notes["A4"];
+=======
+    Dictionary<string, float> notes = new Notes().notes;
+    public AudioSource audioSource;
+    public int freq = 1500;
+    public int length = 1;
+    public float amp = 0.25f;
+    public long startIndex = 0;
+    public Slider freqSlider;
+    LinkedList<AudioClip> audioTrack = new LinkedList<AudioClip>();
+    public UISinWave Wave;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        Wave = new UISinWave(0);
+        audioSource = GetComponent<AudioSource>();
+        freq = 1100;
+>>>>>>> be4be8f9dda2534ab00bb6ff806a0b4d4233f5c0
     }
     //Constantly updates the scene
     void Update()
@@ -58,7 +77,20 @@ public class AudioForUI : MonoBehaviour
         source.clip = Wave.clip;
         source.Play();
     }
+<<<<<<< HEAD
     public void UpdateAudioQuitButton()
+=======
+}
+
+public class UISinWave
+{
+    protected int freq = 1000;
+    protected float amp = 0.1f;
+    public AudioClip clip;
+
+    // Start is called before the first frame update
+    public UISinWave(int frequency)
+>>>>>>> be4be8f9dda2534ab00bb6ff806a0b4d4233f5c0
     {
         Wave.MakeWave((int)notes["C#3"]);
         source.clip = Wave.clip;
@@ -72,6 +104,7 @@ public class AudioForUI : MonoBehaviour
     }
     public void UpdateAudioOption1()
     {
+<<<<<<< HEAD
         Wave.MakeWave((int)notes["B4"]);
         source.clip = Wave.clip;
         source.Play();
@@ -87,6 +120,12 @@ public class AudioForUI : MonoBehaviour
         Wave.MakeWave((int)notes["D#5"]);
         source.clip = Wave.clip;
         source.Play();
+=======
+        //int freq = int.Parse();
+        //int duration = int.Parse();
+
+        System.Console.Beep(freq, 1);
+>>>>>>> be4be8f9dda2534ab00bb6ff806a0b4d4233f5c0
     }
     //^^ These are for each individual button.
 }
