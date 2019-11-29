@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿//This is a dictionary, used to specify frequencies for musical notes, from C3 to B5.
+using System.Collections.Generic;
 
 class Notes
 {

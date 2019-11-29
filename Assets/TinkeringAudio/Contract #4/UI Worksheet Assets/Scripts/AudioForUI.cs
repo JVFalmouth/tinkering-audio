@@ -10,18 +10,18 @@ using UnityEngine.UI;
 //This initialises the class used for the audio generation
 public class AudioForUI : MonoBehaviour
 {
-    Dictionary<string, float> notes = new Notes().notes;
+    public Dictionary<string, float> notes = new Notes().notes;
     private AudioSource source;
-    public int i = -1;
     readonly private int freq = 1500;
     readonly private int length = 1;
     readonly private float amp = 0.25f;
     readonly private long startIndex = 0;
     readonly LinkedList<AudioClip> audioTrack = new LinkedList<AudioClip>();
+    public Slider volSlider;
     private SinWav Wave;
 
     //Start is called before the first update
-    void Start()
+    private void Start()
     {
         Wave = new SinWav(0, 0);
         source = GetComponent<AudioSource>();
@@ -31,6 +31,10 @@ public class AudioForUI : MonoBehaviour
     void Update()
     {
         float freq = notes["A4"];
+        if (volSlider != null)
+        {
+            float amp = volSlider.value;
+        }
     }
     //This defines the audio source
     private void SetAudioSourceClip(AudioClip clip)
@@ -38,20 +42,51 @@ public class AudioForUI : MonoBehaviour
         source.clip = clip;
         source.Play();
     }
-    //This is specifying the correct sequence of frequencies to play
-    public void UpdateAudio()
+    //These are specifying the correct frequencies to play, 
+    //which are specified by name of the note in the dictionary "Notes".
+    //There is a unique function for each button pressed.
+    //This is linked to each button within the inspector.
+    public void UpdateAudioPlayButton()
     {
-        string[] startButton = { "C5", "E5", "G5" };
-        if (i < 3)
-        {
-            foreach (string i in startButton)
-            {
-                this.i = this.i + 1;
-                Wave.MakeWave((int)notes[startButton[this.i]]);
-                source.clip = Wave.clip;
-                source.Play();
-            }
-            this.i = -1;
-        }
+        Wave.MakeWave((int)notes["C5"]);
+        source.clip = Wave.clip;
+        source.Play();
     }
+    public void UpdateAudioOptionsButton()
+    {
+        Wave.MakeWave((int)notes["A4"]);
+        source.clip = Wave.clip;
+        source.Play();
+    }
+    public void UpdateAudioQuitButton()
+    {
+        Wave.MakeWave((int)notes["C#3"]);
+        source.clip = Wave.clip;
+        source.Play();
+    }
+    public void UpdateAuidoBackButton()
+    {
+        Wave.MakeWave((int)notes["G4"]);
+        source.clip = Wave.clip;
+        source.Play();
+    }
+    public void UpdateAudioOption1()
+    {
+        Wave.MakeWave((int)notes["B4"]);
+        source.clip = Wave.clip;
+        source.Play();
+    }
+    public void UpdateAudioOption2()
+    {
+        Wave.MakeWave((int)notes["C#5"]);
+        source.clip = Wave.clip;
+        source.Play();
+    }
+    public void UpdateAudioOption3()
+    {
+        Wave.MakeWave((int)notes["D#5"]);
+        source.clip = Wave.clip;
+        source.Play();
+    }
+    //^^ These are for each individual button.
 }

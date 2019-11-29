@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
+using System;
 
 /// <summary>
 /// This is for creating tones, contains
@@ -94,5 +95,10 @@ public class SinWav
         }
         audioClip.SetData(samples, 0);
         clip = audioClip;
+    }
+
+    internal void MakeWave(float v)
+    {
+        throw new NotImplementedException();
     }
 }
