@@ -42,7 +42,7 @@ public class AudioTinker : MonoBehaviour {
         {
             freq = (int)(440 * Mathf.Pow((1.059463f), freqSlider.value));
         }
-        if (dropdown.value == 0)
+        if (dropdown.value != 0)
         {
             audioSource.volume = 1;
         }
