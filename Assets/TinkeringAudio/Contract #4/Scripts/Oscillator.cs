@@ -20,17 +20,17 @@ public class Oscillator : MonoBehaviour
         frequencies[1] = 494.0f;
         frequencies[2] = 554.0f;
         frequencies[3] = 587.0f;
-        frequencies[4] = 659.0f;
+        frequencies[4] = 659.0f; ;
     }
 
-    private void Update()
+    public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             gain = 0.05f;
             frequency = frequencies[currentFreq];
             currentFreq += 1;
-            currentFreq = currentFreq % frequencies.Length;
+            currentFreq %= frequencies.Length;
         }
         if (Input.GetKeyUp(KeyCode.Space))
         {
